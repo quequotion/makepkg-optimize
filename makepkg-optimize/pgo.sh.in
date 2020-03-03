@@ -32,7 +32,8 @@ buildenv_pgo() {
       pgoflags=" -fprofile-generate -fprofile-dir=$PROFDEST/$pkgbase.gen"
       pgoldflags=" -lgcov --coverage"
       msg2 "Profile data will be generated."
-    elif [[ ! -d $PROFDEST/$pkgbase.used ]]; then
+    else
+      [[ -d $PROFDEST/$pkgbase.used ]] && rm -rf $PROFDEST/$pkgbase.used
       mv $PROFDEST/$pkgbase.{gen,used}
       pgoflags=" -fprofile-correction -fprofile-use -fprofile-dir=$PROFDEST/$pkgbase.used"
       msg2 "Profile data will be applied."
